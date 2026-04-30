@@ -8,7 +8,9 @@ import partytown from '@astrojs/partytown';
 
 export default defineConfig({
   output: 'server',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    mode: 'directory'
+  }),
   integrations: [
     tailwind(),
     react(),
