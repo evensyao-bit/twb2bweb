@@ -1,0 +1,106 @@
+---
+---
+<header class="fixed top-0 left-0 w-full z-50 glass border-b border-black/5">
+	<nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" aria-label="主要導覽">
+		<!-- Logo -->
+		<a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity z-50" aria-label="拓必工作室首頁">
+			<img src="/logo.gif" alt="拓必工作室 Logo" class="h-10 w-auto" />
+			<div class="text-2xl font-black tracking-tighter uppercase">拓必工作室</div>
+		</a>
+
+		<!-- Desktop Navigation -->
+		<div class="hidden lg:flex gap-2 text-[1rem] font-bold uppercase tracking-wider">
+			<a href="/" class="px-4 py-2 hover:bg-black hover:text-white transition-all duration-300 rounded-sm">首頁</a>
+			<a href="/blog/?category=成功案例" class="px-4 py-2 hover:bg-black hover:text-white transition-all duration-300 rounded-sm">成功案例</a>
+			<a href="/portfolio/" class="px-4 py-2 hover:bg-black hover:text-white transition-all duration-300 rounded-sm">作品集</a>
+			<a href="/pricing/" class="px-4 py-2 hover:bg-black hover:text-white transition-all duration-300 rounded-sm">價格</a>
+			<a href="/blog/" class="px-4 py-2 hover:bg-black hover:text-white transition-all duration-300 rounded-sm">Blog</a>
+		</div>
+
+		<!-- Desktop Contact Button -->
+		<div class="hidden lg:block">
+			<a href="#contact">
+				<button class="bg-black text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-[#262626] hover:scale-[1.02] transition-all duration-300">
+					聯絡我們
+				</button>
+			</a>
+		</div>
+
+		<!-- Hamburger Button (Mobile/Tablet) -->
+		<button id="menu-toggle" class="lg:hidden flex flex-col gap-1.5 p-2 z-50 group" aria-label="切換選單">
+			<span class="w-6 h-0.5 bg-black transition-all duration-300 group-[.open]:rotate-45 group-[.open]:translate-y-2"></span>
+			<span class="w-6 h-0.5 bg-black transition-all duration-300 group-[.open]:opacity-0"></span>
+			<span class="w-6 h-0.5 bg-black transition-all duration-300 group-[.open]:-rotate-45 group-[.open]:-translate-y-2"></span>
+		</button>
+	</nav>
+</header>
+
+<!-- Mobile/Tablet Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 bg-white z-[100] translate-x-full transition-transform duration-500 ease-in-out lg:hidden flex flex-col items-center justify-start overflow-y-auto pb-20">
+	<!-- Close Button -->
+	<button id="menu-close" class="absolute top-6 right-6 p-2 group" aria-label="關閉選單">
+		<span class="w-8 h-0.5 bg-black block rotate-45 translate-y-0.5 transition-transform duration-300"></span>
+		<span class="w-8 h-0.5 bg-black block -rotate-45 -translate-y-0.5 transition-transform duration-300"></span>
+	</button>
+
+	<nav class="flex flex-col items-center gap-8 text-2xl font-black uppercase tracking-tighter pt-32 px-6 w-full text-center">
+		<a href="/" class="mobile-link hover:text-black/40 transition-colors w-full py-2">首頁</a>
+		<a href="/blog/?category=成功案例" class="mobile-link hover:text-black/40 transition-colors w-full py-2">成功案例</a>
+		<a href="/portfolio/" class="mobile-link hover:text-black/40 transition-colors w-full py-2">作品集</a>
+		<a href="/pricing/" class="mobile-link hover:text-black/40 transition-colors w-full py-2">價格</a>
+		<a href="/blog/" class="mobile-link hover:text-black/40 transition-colors w-full py-2">Blog</a>
+		<a href="#contact" class="mobile-link mt-8 bg-black text-white px-12 py-5 text-sm tracking-[0.3em] w-fit">聯絡我們</a>
+	</nav>
+</div>
+
+<script is:inline>
+	function initMenu() {
+		const toggle = document.getElementById('menu-toggle');
+		const close = document.getElementById('menu-close');
+		const menu = document.getElementById('mobile-menu');
+		const links = document.querySelectorAll('.mobile-link');
+		let isOpen = false;
+
+		function toggleMenu() {
+			isOpen = !isOpen;
+			toggle?.classList.toggle('open', isOpen);
+			menu?.classList.toggle('translate-x-full', !isOpen);
+			document.body.style.overflow = isOpen ? 'hidden' : '';
+		}
+
+		toggle?.addEventListener('click', toggleMenu);
+		close?.addEventListener('click', toggleMenu);
+
+		links.forEach(link => {
+			link.addEventListener('click', () => {
+				if (isOpen) toggleMenu();
+			});
+		});
+	}
+
+	initMenu();
+	// For Astro View Transitions
+	document.addEventListener('astro:after-swap', initMenu);
+</script>
+
+<style>
+	/* Optional: Add a subtle animation to the menu links */
+	.mobile-link {
+		opacity: 0;
+		transform: translateY(20px);
+		transition: all 0.5s ease-out;
+	}
+
+	#mobile-menu:not(.translate-x-full) .mobile-link {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Stagger the animations */
+	#mobile-menu:not(.translate-x-full) .mobile-link:nth-child(1) { transition-delay: 0.2s; }
+	#mobile-menu:not(.translate-x-full) .mobile-link:nth-child(2) { transition-delay: 0.3s; }
+	#mobile-menu:not(.translate-x-full) .mobile-link:nth-child(3) { transition-delay: 0.4s; }
+	#mobile-menu:not(.translate-x-full) .mobile-link:nth-child(4) { transition-delay: 0.5s; }
+	#mobile-menu:not(.translate-x-full) .mobile-link:nth-child(5) { transition-delay: 0.6s; }
+	#mobile-menu:not(.translate-x-full) .mobile-link:nth-child(6) { transition-delay: 0.7s; }
+</style>

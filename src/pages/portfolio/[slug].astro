@@ -1,0 +1,340 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  const projects = [
+    {
+      slug: 'website-projects',
+      title: '網站建置 Website Projects',
+      category: '網站 / 網頁',
+      projectNames: ['mitaccomputing.com', 'tyan.com', 'mitactmct.com'],
+      description: '規劃並建置多語系企業官方網站，採用 Bootstrap 架構提升跨裝置相容性與維護效率。協助整體網站架構設計、內容規劃與撰寫，並執行全球 SEO 優化策略，強化企業在不同市場的搜尋能見度與品牌數位形象。',
+      highlights: [
+        '多語系網站架構規劃（Global Site Structure）',
+        '響應式網站設計（RWD）',
+        '內容策略與文案撰寫',
+        'SEO 關鍵字規劃與優化',
+        '品牌一致性與使用者體驗提升'
+      ],
+      gallery: [
+        { url: '/portfolio/site-1.jpg', label: '首頁' },
+        { url: '/portfolio/site-2.jpg', label: '產品頁' },
+        { url: '/portfolio/site-3.jpg', label: 'Landing Page' },
+        { url: '/portfolio/site-4.jpg', label: '連絡我們頁' },
+        { url: '/portfolio/site-5.jpg', label: '產品頁' },
+        { url: '/portfolio/site-6.jpg', label: '關於我們頁' },
+        { url: '/portfolio/site-7.jpg', label: '產品列表頁' },
+        { url: '/portfolio/site-8.jpg', label: '解決方案頁' },
+        { url: '/portfolio/site-9.jpg', label: '軟體產品介紹頁' },
+        { url: '/portfolio/site-10.jpg', label: '登入頁' },
+        { url: '/portfolio/site-11.jpg', label: '會員頁' }
+      ]
+    },
+    {
+      slug: 'campaign-landing-pages',
+      title: '行銷活動網頁設計製作',
+      category: '網站 / 網頁',
+      projectNames: ['Online Campaigns – New Product Launches'],
+      description: '配合企業行銷活動（Event 或新產品上市），規劃設計製作活動網頁 Landing Page 與 SEO 導向內容規劃，提升產品曝光度與市場關注度，並有效促進潛在客戶轉換。',
+      highlights: [
+        '行銷活動頁（Landing Page）規劃與設計',
+        '視覺素材與品牌一致性製作',
+        'SEO 導向內容策略',
+        '成效追蹤與優化'
+      ],
+      gallery: [
+        { url: '/portfolio/new-1.jpg', label: 'Event 行銷活動頁' },
+        { url: '/portfolio/new-2.jpg', label: '新產品上市頁' },
+        { url: '/portfolio/new-3.jpg', label: '新產品上市頁' }
+      ]
+    },
+    {
+      slug: 'social-media-marketing',
+      title: '社群媒體行銷',
+      category: '社群媒體',
+      projectNames: ['Social media 社群媒體貼文'],
+      description: '貼文發想產生，規劃製作社群媒體內容與視覺素材，涵蓋 LinkedIn、YouTube 與 X（Twitter）等平台，透過一致且精準的內容策略，強化品牌曝光並提升受眾互動。',
+      highlights: [
+        '社群內容策略規劃',
+        '視覺設計與品牌一致性',
+        '多平台內容經營（LinkedIn / YouTube / X）',
+        '行銷活動整合推廣',
+        '互動率與觸及成效提升'
+      ],
+      gallery: [
+        { url: '/portfolio/X-1.jpg', label: '電腦展活動即時貼文' },
+        { url: '/portfolio/X-6.jpg', label: '電子報分享貼文' },
+        { url: '/portfolio/X-2.jpg', label: '新產品貼文' },
+        { url: '/portfolio/X-3-new-product.jpg', label: '新產品貼文' },
+        { url: '/portfolio/X-4.jpg', label: '新產品貼文' },
+        { url: '/portfolio/X-5-resharing.jpg', label: '媒體介紹產品貼文' },
+        { url: '/portfolio/X-7-event-video-2.jpg', label: '電腦展活動影音即時貼文（影音剪輯）' },
+        { url: '/portfolio/X-11-event.jpg', label: '電腦展活動即時貼文' },
+        { url: '/portfolio/X-8-YT-sharing.jpg', label: '產品影音分享' },
+        { url: '/portfolio/X-10-new-product.jpg', label: '新產品貼文' }
+      ]
+    },
+    {
+      slug: 'newsletter-marketing',
+      title: '電子報行銷 / eDM',
+      category: '電子報 / eDM',
+      projectNames: ['電子報與 eDM 行銷'],
+      description: '電子報內容規劃產生，電子報設計製作編輯，使用 Mailchimp 與 Zoho Campaigns 建立與管理自動化電子報系統，透過精準的受眾分群，提升開信率與點擊率，並持續優化行銷成效。',
+      highlights: [
+        '電子報內容規劃與設計',
+        '行銷自動化流程建置',
+        '受眾分群與個人化行銷',
+        '成效分析（開信率 / 點擊率）',
+        'A/B Testing 優化策略'
+      ],
+      gallery: [
+        { url: '/portfolio/nl-1.jpg', label: '電子報' },
+        { url: '/portfolio/nl-2.jpg', label: '電子報' },
+        { url: '/portfolio/nl-3.jpg', label: '電子邀請函' },
+        { url: '/portfolio/nl-4.jpg', label: 'eDM' },
+        { url: '/portfolio/nl-5.jpg', label: 'eDM' }
+      ]
+    },
+    {
+      slug: 'video-production',
+      title: '影音製作',
+      category: '影音',
+      projectNames: ['影音剪輯製作'],
+      tools: ['Canva', 'Adobe Premiere Rush'],
+      description: '負責活動精華影片與產品介紹影片之腳本撰寫與剪輯製作，透過清晰的敘事與視覺節奏，提升品牌內容的吸引力與傳播效果。',
+      highlights: [
+        '腳本企劃與內容發想',
+        '影片剪輯與後製',
+        '品牌視覺與節奏掌控'
+      ],
+      gallery: [
+        { url: '/portfolio/vd-1.jpg', label: '產品介紹影片' },
+        { url: '/portfolio/vd-2.jpg', label: '展覽會場短影音產品介紹' },
+        { url: '/portfolio/vd-3.jpg', label: '展覽會場短影音產品介紹' },
+        { url: '/portfolio/vd-4.jpg', label: '軟體介紹影片' },
+        { url: '/portfolio/vd-5.jpg', label: '展覽會場影音產品介紹' }
+      ]
+    },
+    {
+      slug: 'graphic-design',
+      title: '平面設計',
+      category: '平面設計',
+      projectNames: ['Graphic Design'],
+      description: '設計品牌相關視覺素材，包括 Logo、名片、型錄與海報，確保品牌識別一致性，並強化整體品牌形象與專業度。',
+      highlights: [
+        '品牌視覺識別設計（Brand Identity）',
+        '商業印刷設計（名片 / 型錄 / 海報）',
+        '視覺風格統一與延伸',
+        '行銷素材設計'
+      ],
+      gallery: [
+        { url: '/portfolio/Graphic-Brochure.jpg', label: '產品型錄（三折）' },
+        { url: '/portfolio/Graphic-Backdrop.jpg', label: '展場掛布' },
+        { url: '/portfolio/Graphic-banner.jpg', label: 'Banner' },
+        { url: '/portfolio/Graphic-Logo.gif', label: '公司 Logo 設計' },
+        { url: '/portfolio/Graphic-namecard.png', label: '名片設計' },
+        { url: '/portfolio/Graphic-signage.gif', label: '展覽立牌' }
+      ]
+    },
+    {
+      slug: 'deksollc-website',
+      title: '零成本高安全的貿易商網站重建',
+      category: '網站 / 網頁',
+      projectNames: ['Dekso 貿易商公司網站重建專案（deksollc.com）'],
+      description: '本專案針對一個運行超過十年的 B2B 貿易商公司網站進行全面重建。原網站採用 WordPress 架構，雖然內容僅為少量靜態頁面，卻長期面臨資安攻擊與系統相容性問題。透過導入 Jamstack 架構，將網站轉型為純靜態網站，完全移除後端系統與資料庫，同時整合 Astro、Cloudflare Pages 與 Web3Forms 等技術，打造高效能、高安全且零維運成本的現代化企業網站。整體開發流程亦結合 AI 輔助設計與實作，大幅提升專案效率與品質。',
+      highlights: [
+        '採用 Jamstack 架構重建網站，移除後端與資料庫以提升安全性',
+        '使用 Astro 搭配 AstroWind 模板，快速打造高效能前端介面',
+        '部署於 Cloudflare Pages，建立全球 CDN 與自動化 CI/CD 流程',
+        '導入 Web3Forms，實現無後端的聯絡表單 Email 傳送機制',
+        '建立 GitHub 與 Cloudflare 串接，確保版本控管與自動更新',
+        '導入 AI 輔助 prototype 與開發流程，加速專案交付與品質一致性'
+      ],
+      gallery: [
+        { url: '/portfolio/deksollc-home.jpg', label: '公司網站首頁' },
+        { url: '/portfolio/deksollc-grains.jpg', label: '內容頁' },
+        { url: '/portfolio/deksollc-dairy.jpg', label: '內容頁' },
+        { url: '/portfolio/deksollc-meat.jpg', label: '內容頁' },
+        { url: '/portfolio/deksollc-scrap.jpg', label: '內容頁' },
+        { url: '/portfolio/deksollc-other.jpg', label: '內容頁' },
+        { url: '/portfolio/deksollc-about.jpg', label: '關於我們頁' },
+        { url: '/portfolio/deksollc-contact.jpg', label: '聯絡我們頁' }
+      ]
+    }
+  ];
+
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout 
+	title={`${project.title} - 作品案例 - 拓必工作室`}
+	description={project.description}
+>
+	<main class="pt-40 min-h-screen">
+		<article class="max-w-7xl mx-auto px-6 py-20">
+			<!-- Header Section -->
+			<div class="grid lg:grid-cols-2 gap-20 mb-32">
+				<div>
+					<div class="bg-black text-white text-[10px] font-bold uppercase px-3 py-1 tracking-widest inline-block mb-8">
+						{project.category}
+					</div>
+					<h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tighter text-black mb-12">
+						{project.title}
+					</h1>
+					
+					<div class="space-y-8">
+						<div>
+							<h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 mb-4">專案名稱</h3>
+							<div class="flex flex-wrap gap-x-6 gap-y-2">
+								{project.projectNames.map(name => (
+									<span class="text-lg font-bold text-black/80">{name}</span>
+								))}
+							</div>
+						</div>
+
+            {project.tools && (
+              <div>
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 mb-4">使用工具</h3>
+                <div class="flex flex-wrap gap-3">
+                  {project.tools.map(tool => (
+                    <span class="px-4 py-2 bg-black/5 rounded-full text-xs font-bold text-black/60">{tool}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+					</div>
+				</div>
+
+				<div class="flex flex-col justify-end">
+					<p class="text-xl text-black/60 leading-relaxed mb-12">
+						{project.description}
+					</p>
+					
+					<div>
+						<h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 mb-6">執行重點</h3>
+						<ul class="grid sm:grid-cols-2 gap-4">
+							{project.highlights.map(item => (
+								<li class="flex items-start gap-3 text-sm font-bold text-black/80">
+									<svg class="w-4 h-4 text-black mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+									</svg>
+									{item}
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Slider Section -->
+			<div class="relative group">
+				<div class="flex items-center justify-between mb-8">
+					<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">作品</span>
+					<div class="flex items-center gap-8">
+						<div id="slider-counter" class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/40">
+							<span id="current-slide">01</span> / <span id="total-slides">{project.gallery.length.toString().padStart(2, '0')}</span>
+						</div>
+						<div class="flex gap-4">
+							<button id="prev-slide" class="w-12 h-12 bg-white border border-black/5 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all shadow-sm">
+								<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+								</svg>
+							</button>
+							<button id="next-slide" class="w-12 h-12 bg-white border border-black/5 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all shadow-sm">
+								<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div id="slider-container" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth gap-4 pb-12">
+					{project.gallery.map((img, index) => (
+						<div class="min-w-full md:min-w-[80%] snap-center slide-item" data-index={index}>
+							<div class="relative bg-black/5 overflow-hidden mb-6 group/item flex justify-center">
+								<img 
+									src={img.url} 
+									alt={img.label} 
+									class="w-auto max-w-full h-auto transition-transform duration-1000 group-hover/item:scale-105"
+								/>
+								<div class="absolute top-6 left-6">
+									<span class="bg-black text-white px-4 py-2 text-base font-bold uppercase tracking-widest inline-block">
+										{img.label}
+									</span>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<!-- Footer Navigation -->
+			<div class="mt-32 pt-20 border-t border-black/5 flex justify-between items-center">
+				<a href="/portfolio" class="text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-4 group">
+					<span class="w-12 h-px bg-black/20 group-hover:w-20 transition-all"></span>
+					Back to Portfolio
+				</a>
+			</div>
+		</article>
+	</main>
+</Layout>
+
+<script>
+	function initSlider() {
+		const container = document.getElementById('slider-container');
+		const prevBtn = document.getElementById('prev-slide');
+		const nextBtn = document.getElementById('next-slide');
+		const currentDisplay = document.getElementById('current-slide');
+		const slides = document.querySelectorAll('.slide-item');
+
+		if (!container || !prevBtn || !nextBtn || !currentDisplay) return;
+
+		const scrollAmount = container.clientWidth * 0.8;
+
+		prevBtn.addEventListener('click', () => {
+			container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+		});
+
+		nextBtn.addEventListener('click', () => {
+			container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+		});
+
+		// Intersection Observer for counter
+		const observerOptions = {
+			root: container,
+			threshold: 0.5
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const index = parseInt(entry.target.getAttribute('data-index')) + 1;
+					currentDisplay.textContent = index.toString().padStart(2, '0');
+				}
+			});
+		}, observerOptions);
+
+		slides.forEach(slide => observer.observe(slide));
+	}
+
+	initSlider();
+	document.addEventListener('astro:after-swap', initSlider);
+</script>
+
+<style>
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+</style>

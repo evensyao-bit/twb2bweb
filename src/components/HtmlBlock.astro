@@ -1,0 +1,12 @@
+---
+const { node } = Astro.props;
+const { html, css } = node;
+const id = `html-block-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="my-10 overflow-hidden" id={id}>
+  {css && (
+    <style is:inline set:html={`#${id} { ${css} }`}></style>
+  )}
+  <div class="not-prose" set:html={html}></div>
+</div>

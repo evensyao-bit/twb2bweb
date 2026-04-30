@@ -1,0 +1,395 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="拓必工作室 - 驅動 B2B 數位業務成長">
+
+	<main class="pt-40">
+		<!-- Hero -->
+		<section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 items-center gap-12 mb-20">
+			<div class="flex flex-col items-start gap-8">
+				<div class="bg-black text-white text-[10px] font-bold uppercase px-3 py-1 tracking-widest">
+					Digital Business Growth
+				</div>
+				<h1 class="text-[clamp(3rem,8vw,5.5rem)] font-bold leading-[1.1] tracking-tighter text-black">
+					驅動 B2B<br />
+					數位業務成長
+				</h1>
+				<p class="text-xl text-black/60 leading-relaxed max-w-lg">
+					擁有 20 年台灣硬體跨國企業實戰經驗。網站策略 × 數位行銷 × 內容規劃 — 為 B2B 企業打造有轉換力的全球數位開發
+				</p>
+				<a href="#contact" class="bg-black text-white px-10 py-6 text-base font-bold tracking-widest hover:bg-[#262626] transition-all">
+					聯絡我們
+				</a>
+			</div>
+			<div class="flex justify-end">
+				<img src="/hero-KV.png" alt="B2B Growth Illustration" class="w-full max-w-2xl h-auto" />
+			</div>
+		</section>
+
+		<!-- difficulity -->
+		<section class="bg-[#F3F3F4] py-32 px-6">
+			<div class="max-w-7xl mx-auto">
+				<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+					<h2 class="text-6xl font-bold leading-tight">你是否正在<br />面臨這些困境？</h2>
+					<p class="text-black/40 max-w-md text-lg">在數位轉型的浪潮中，許多 B2B 企業空有網站卻無法產生實際訂單。</p>
+				</div>
+
+				<div class="grid md:grid-cols-3 gap-6">
+					<!-- Card 1 -->
+					<div class="bg-white p-12 flex flex-col gap-6 border-l-4 border-black hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+						<div class="text-black opacity-80 group-hover:scale-110 transition-transform">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 17-6-6-4 4-8-8"/><path d="M18 17h4v-4"/></svg>
+						</div>
+						<h3 class="text-2xl font-bold leading-snug">網站做好了，但流量和詢問都沒有增加</h3>
+						<p class="text-black/40 leading-relaxed">投入了預算，但網站卻像是一張發出去的數位名片。</p>
+					</div>
+
+					<!-- Card 2 -->
+					<div class="bg-white p-12 flex flex-col gap-6 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+						<div class="text-black opacity-80 group-hover:scale-110 transition-transform">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" x2="22" y1="8" y2="13"/><line x1="22" x2="17" y1="8" y2="13"/></svg>
+						</div>
+						<h3 class="text-2xl font-bold leading-snug">沒有行銷人力，社群帳號一直空著不知道怎麼經營</h3>
+						<p class="text-black/40 leading-relaxed">知道社群很重要，但每天忙於業務，無暇顧及內容產出。</p>
+					</div>
+
+					<!-- Card 3 -->
+					<div class="bg-white p-12 flex flex-col gap-6 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+						<div class="text-black opacity-80 group-hover:scale-110 transition-transform">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+						</div>
+						<h3 class="text-2xl font-bold leading-snug">想做電子報但不知道從哪開始</h3>
+						<p class="text-black/40 leading-relaxed">累積了客戶名單卻不知道如何轉換，想建立自動化行銷流程。</p>
+					</div>
+
+					<!-- Card 4 -->
+					<div class="bg-white p-12 flex flex-col gap-6 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+						<div class="text-black opacity-80 group-hover:scale-110 transition-transform">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg>
+						</div>
+						<h3 class="text-2xl font-bold leading-snug">想讓網站改版，但預算有限、工期要短</h3>
+						<p class="text-black/40 leading-relaxed">需要專業的門面，但不想花大錢與漫長時間等待傳統改版。</p>
+					</div>
+
+					<!-- Card 5 -->
+					<div class="bg-white p-12 flex flex-col gap-6 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+						<div class="text-black opacity-80 group-hover:scale-110 transition-transform">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+						</div>
+						<h3 class="text-2xl font-bold leading-snug">有好的產品，卻沒有對的人知道</h3>
+						<p class="text-black/40 leading-relaxed">產品具備競爭力，但在搜尋引擎或社群平台上完全隱形。</p>
+					</div>
+
+					<!-- Card 6 -->
+					<div class="bg-black p-12 flex flex-col justify-center items-center text-center hover:scale-105 transition-all duration-300 shadow-2xl cursor-default">
+						<h3 class="text-3xl font-bold text-white leading-relaxed">
+							這些問題，<br />
+							我們都可以解決。
+						</h3>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		
+		<!-- service -->
+		<section class="py-32 px-6 bg-[#F9F9F9]">
+			<div class="max-w-7xl mx-auto">
+				<div class="mb-20">
+					<h2 class="text-6xl font-bold inline-block relative pb-6">
+						我們提供的服務
+						<span class="absolute bottom-0 left-0 w-[120px] h-[6px] bg-black"></span>
+					</h2>
+				</div>
+
+				<div class="grid md:grid-cols-3 gap-8">
+					<!-- Service 01 -->
+					<div class="bg-white p-12 flex flex-col gap-8 shadow-sm hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 group cursor-default h-full">
+						<span class="text-8xl font-black text-black/5 leading-none">01</span>
+						<h3 class="text-3xl font-bold">AI 網站轉型診斷</h3>
+						<p class="text-black/50 leading-relaxed min-h-[120px] text-lg">
+							15 分鐘快檢 + 專家深度 UX 審計，提供全渠道服務藍圖。適合網站轉型迷惘、詢盤量低的企業。
+						</p>
+						<p class="text-[10px] font-bold text-black/30 uppercase tracking-[0.2em] mb-4">
+							起始價：NT$0（免費健檢起）
+						</p>
+						<div class="mt-auto">
+							<a href="#contact" class="block w-full border border-black py-5 text-center font-bold text-sm tracking-widest hover:bg-black hover:text-white transition-all duration-300">
+								了解詳情
+							</a>
+						</div>
+					</div>
+
+					<!-- Service 02 -->
+					<div class="bg-black p-12 flex flex-col gap-8 shadow-xl hover:-translate-y-3 hover:shadow-black/20 transition-all duration-500 group cursor-default h-full">
+						<span class="text-8xl font-black text-white/10 leading-none">02</span>
+						<h3 class="text-3xl font-bold text-white">敏捷式改版服務</h3>
+						<p class="text-white/50 leading-relaxed min-h-[120px] text-lg">
+							5-7 天交付高擬真互動原型 (High-Fidelity Prototype)，快速驗證商機。適合需快速上線或現有網站過時的 B2B 廠商。
+						</p>
+						<div class="mt-auto">
+							<a href="#contact" class="block w-full bg-white text-black py-5 text-center font-bold text-sm tracking-widest hover:bg-white/90 hover:scale-[1.02] transition-all duration-300">
+								立即預約
+							</a>
+						</div>
+					</div>
+
+					<!-- Service 03 -->
+					<div class="bg-white p-12 flex flex-col gap-8 shadow-sm hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 group cursor-default h-full">
+						<span class="text-8xl font-black text-black/5 leading-none">03</span>
+						<h3 class="text-3xl font-bold">數位業務開發組合</h3>
+						<p class="text-black/50 leading-relaxed min-h-[120px] text-lg">
+							LinkedIn/FB 代操 + 電子報行銷 + 自動化 Leads 收集系統。適合欲開拓海外市場、需穩定商機來源的 B2B 企業。
+						</p>
+						<div class="mt-auto">
+							<a href="#contact" class="block w-full border border-black py-5 text-center font-bold text-sm tracking-widest hover:bg-black hover:text-white transition-all duration-300">
+								專案諮詢
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+		<!-- numbers -->
+		<section class="bg-black text-white py-32 px-6">
+			<div class="max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-[1fr,2fr] items-center gap-20">
+				<div class="text-left w-full">
+					<h2 class="text-6xl font-bold mb-4 tracking-tighter">用數字說話</h2>
+					<p class="text-white/40 text-lg max-w-sm">我們的實戰經驗是您轉型的保障</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-16 w-full">
+					<div class="flex flex-col gap-4">
+						<span class="text-8xl font-black tracking-tighter counter text-white" data-target="14">0+</span>
+						<p class="text-white/40 text-sm font-bold uppercase  leading-relaxed">
+							科技產業實戰經驗 (年)
+						</p>
+					</div>
+					<div class="flex flex-col gap-4">
+						<span class="text-8xl font-black tracking-tighter counter text-white" data-target="75">0%</span>
+						<p class="text-white/40 text-sm font-bold uppercase  leading-relaxed">
+							SEO 自然流量優化成果
+						</p>
+					</div>
+					<div class="flex flex-col gap-4">
+						<span class="text-8xl font-black tracking-tighter counter text-white" data-target="10">0+</span>
+						<p class="text-white/40 text-sm font-bold uppercase leading-relaxed">
+							跨職能整合專案成功交付 (年)
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script>
+			const animate = (counter: HTMLElement) => {
+				const target = parseInt(counter.getAttribute('data-target') || '0');
+				const symbol = counter.getAttribute('data-target') === '75' ? '%' : '+';
+				const duration = 1500;
+				const startTime = performance.now();
+
+				const update = (now: number) => {
+					const elapsed = now - startTime;
+					const progress = Math.min(elapsed / duration, 1);
+					
+					// Ease out quintic
+					const ease = 1 - Math.pow(1 - progress, 5);
+					const currentCount = Math.floor(target * ease);
+					
+					counter.innerText = currentCount + symbol;
+
+					if (progress < 1) {
+						requestAnimationFrame(update);
+					}
+				};
+				requestAnimationFrame(update);
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						animate(entry.target as HTMLElement);
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.2 });
+
+			document.querySelectorAll('.counter').forEach(counter => observer.observe(counter));
+		</script>
+
+
+
+		<!-- about us -->
+		<section class="bg-[#F3F3F4] py-32 px-6">
+			<div class="max-w-7xl mx-auto">
+				<div class="mb-20">
+					<h2 class="text-6xl font-bold inline-block relative pb-6">
+						關於我們
+						<span class="absolute bottom-0 left-0 w-[120px] h-[6px] bg-black"></span>
+					</h2>
+				</div>
+
+				<div class="grid md:grid-cols-2 gap-8">
+					<!-- Kuo -->
+					<div class="bg-white p-12 flex flex-col md:flex-row gap-8 shadow-sm hover:shadow-xl transition-all duration-300 items-start">
+						<div class="flex-shrink-0">
+							<img src="/Ruby.jpg" alt="Kuo" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover grayscale-0 group-hover:grayscale transition-all duration-500" />
+						</div>
+						<div class="space-y-4">
+							<h3 class="text-3xl font-bold text-black">Kuo</h3>
+							<p class="text-black/60 leading-relaxed text-sm">
+								Hi、我是 Kuo。擁有超過 20 年顧客體驗顧問、數位產品設計開發及系統導入前商業策略探索暨數位整合行銷經驗。協助企業客戶發展商業策略、數位藍圖、進行服務優化、並導入創新應用於 CRM、EC、Omnichannel、LINE、WEB、APP 等。服務過眾多台灣百大客戶，產業包括汽車、航空、電信、金融、通路、FMCG、不動產、出版、電商、藥廠、家電等。
+							</p>
+						</div>
+					</div>
+
+					<!-- Even -->
+					<div class="bg-white p-12 flex flex-col md:flex-row gap-8 shadow-sm hover:shadow-xl transition-all duration-300 items-start">
+						<div class="flex-shrink-0">
+							<img src="/even.jpg" alt="Even" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover grayscale-0 group-hover:grayscale transition-all duration-500" />
+						</div>
+						<div class="space-y-4">
+							<h3 class="text-3xl font-bold text-black">Even</h3>
+							<p class="text-black/60 leading-relaxed text-sm">
+								Hi、我是 Even，擁有 15 年以上網站與數位行銷經驗，服務過 MiTAC、Tyan Computer、D-Link、So-net 等知名企業。負責這些大型科技公司的全球網站規劃、SEO 與數位行銷策略。我熟悉科技業 B2B 的產品語言與市場邏輯，能快速理解你的產業背景，用策略性的方式幫你讓網站與行銷真正發揮作用。現在以自由接案的方式，為企業提供彈性、高效的數位服務。
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<!-- why choose us -->
+		<section class="py-32 px-6 bg-white overflow-hidden">
+			<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
+				<!-- Image Left -->
+				<div class="w-full md:w-1/2">
+					<img src="/chatting.gif" alt="Why Choose Us Illustration" class="w-full h-auto max-w-[600px] mx-auto" />
+				</div>
+
+				<!-- Content Right -->
+				<div class="w-full md:w-1/2 space-y-12">
+					<h2 class="text-6xl font-bold text-black tracking-tight">為何選擇我們？</h2>
+					
+					<div class="space-y-10">
+						<!-- Item 1 -->
+						<div class="space-y-4">
+							<div class="flex items-center gap-4">
+								<div class="w-2.5 h-2.5 bg-black flex-shrink-0"></div>
+								<h3 class="text-2xl font-bold">技術與設計兼備</h3>
+							</div>
+							<p class="text-black/40 leading-relaxed pl-6.5 text-lg pl-6">
+								豐富的 UI/UX、企業官網改版規劃與設計、網站平台開發使用經驗（例如：WordPress, Wix 等），確保網站快速上線且符合 SEO / GEO 策略。SEO 成功提升網站自然流量 +75% 經驗！
+							</p>
+						</div>
+
+						<!-- Item 2 -->
+						<div class="space-y-4">
+							<div class="flex items-center gap-4">
+								<div class="w-2.5 h-2.5 bg-black flex-shrink-0"></div>
+								<h3 class="text-2xl font-bold">AI 驅動轉型</h3>
+							</div>
+							<p class="text-black/40 leading-relaxed text-lg pl-6">
+								運用 AI 進行 UX 診斷、內容生成與圖像設計（Midjourney / Photoshop AI / Nano Banana），縮短 50% 的改版時程。
+							</p>
+						</div>
+
+						<!-- Item 3 -->
+						<div class="space-y-4">
+							<div class="flex items-center gap-4">
+								<div class="w-2.5 h-2.5 bg-black flex-shrink-0"></div>
+								<h3 class="text-2xl font-bold flex items-center gap-3">
+									深耕 B2B 市場
+									<span class="bg-[#F3F3F4] text-[11px] font-bold px-3 py-1.5 uppercase tracking-wider rounded-sm">CORE</span>
+								</h3>
+							</div>
+							<p class="text-black/40 leading-relaxed text-lg pl-6">
+								台灣 B2B 數位行銷顧問，多年專注於 LinkedIn 經營、企業電子報經驗，精準觸達海外客戶。
+							</p>
+						</div>
+					</div>
+
+					<div class="pt-6">
+						<a href="#" class="inline-block bg-black text-white px-12 py-5 font-bold tracking-widest hover:bg-[#262626] hover:scale-[1.05] transition-all duration-300">
+							瀏覽作品集
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- skills Marquee -->
+		<section class="bg-[#A3A3A3] py-16 overflow-hidden border-y border-black/10">
+			<div class="relative flex overflow-hidden">
+				<div class="flex animate-marquee whitespace-nowrap items-center gap-16">
+					{
+						[
+							"Photoshop", "Illustrator", "Canva", "Adobe Creative Cloud", "Midjourney", 
+							"SEO", "Google Analytics", "Gtag", "Google Ads", 
+							"Mailchimp", "Zoho Campaigns", "WordPress", "Wix", "Figma", 
+							"Framer", "Hostinger", "HTML", "CSS", "Bootstrap", "Jamstack", "Sanity", "Astro"
+						].map((skill, i) => (
+							<span class={`text-6xl font-black uppercase tracking-tighter flex items-center gap-16 ${i % 2 === 0 ? 'text-black' : 'text-white/60'}`}>
+								{skill}
+							</span>
+						))
+					}
+					{/* Duplicate for seamless loop */}
+					{
+						[
+							"Photoshop", "Illustrator", "Canva", "Adobe Creative Cloud", "Midjourney", 
+							"SEO", "Google Analytics", "Gtag", "Google Ads", 
+							"Mailchimp", "Zoho Campaigns", "WordPress", "Wix", "Figma", 
+							"Framer", "Hostinger", "HTML", "CSS", "Bootstrap", "Jamstack", "Sanity", "Astro"
+						].map((skill, i) => (
+							<span class={`text-6xl font-black uppercase tracking-tighter flex items-center gap-16 ${i % 2 === 0 ? 'text-black' : 'text-white/60'}`}>
+								{skill}
+							</span>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<style>
+			@keyframes marquee {
+				0% { transform: translateX(0); }
+				100% { transform: translateX(-50%); }
+			}
+			.animate-marquee {
+				animation: marquee 40s linear infinite;
+				width: max-content;
+			}
+		</style>
+		
+
+
+		<!-- CTA -->
+		<section class="py-40 px-6 text-center bg-[#F9F9F9]">
+			<div class="max-w-4xl mx-auto space-y-12">
+				<h2 class="text-[clamp(3rem,6vw,5.5rem)] font-bold leading-[1.1] tracking-tighter text-black">
+					想讓你的網站真正<br />帶來客戶？
+				</h2>
+				<p class="text-black/40 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
+					現在預約，免費獲得一份初步的網站健檢與轉型建議。
+				</p>
+				<div class="pt-8">
+					<a href="#contact" class="inline-block bg-black text-white px-16 py-8 text-base md:text-lg font-bold tracking-widest hover:bg-[#262626] hover:scale-[1.05] hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] active:scale-95 transition-all duration-300">
+						立即預約網站健檢
+					</a>
+				</div>
+			</div>
+		</section>
+
+
+	</main>
+</Layout>

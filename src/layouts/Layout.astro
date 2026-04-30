@@ -1,0 +1,144 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "拓必工作室 - 驅動 B2B 數位業務成長。20 年科技產業實戰經驗，提供網站策略、數位行銷、內容規劃與 SEO/GEO 優化服務。" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-TW">
+	<head>
+		<!-- Google Tag Manager -->
+		<script type="text/partytown" is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-KBG8JM7P');</script>
+		<!-- End Google Tag Manager -->
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="B2B 行銷, 數位轉型, 網站改版, SEO, GEO, LinkedIn 行銷, 電子報行銷, 拓必工作室," />
+		<meta name="author" content="拓必工作室" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://to-be-studio.com/" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/hero-KV.png" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://to-be-studio.com/" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/hero-KV.png" />
+
+		<!-- Favicons -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+		
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "LocalBusiness",
+				"name": "拓必工作室",
+				"image": "https://to-be-studio.com/hero-KV.png",
+				"@id": "https://to-be-studio.com/",
+				"url": "https://to-be-studio.com/",
+				"telephone": "",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "",
+					"addressLocality": "Taipei",
+					"addressRegion": "TW",
+					"postalCode": "",
+					"addressCountry": "TW"
+				},
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": 25.0330,
+					"longitude": 121.5654
+				},
+				"openingHoursSpecification": {
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": [
+						"Monday",
+						"Tuesday",
+						"Wednesday",
+						"Thursday",
+						"Friday"
+					],
+					"opens": "09:00",
+					"closes": "18:00"
+				},
+				"sameAs": [
+					"https://www.linkedin.com/company/to-be-studio"
+				]
+			}
+		</script>
+		
+		<script is:inline>
+			// Force scroll to top and disable restoration to prevent jumping on refresh
+			if ('scrollRestoration' in history) {
+				history.scrollRestoration = 'manual';
+			}
+			window.scrollTo(0, 0);
+		</script>
+	</head>
+	<body class="bg-[#F9F9F9] text-[#000000] font-['Roboto_Flex'] selection:bg-[#000000] selection:text-[#FFFFFF]">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBG8JM7P"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<Header />
+		<slot />
+		<Footer />
+		<BackToTop />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--primary: #000000;
+		--surface: #F9F9F9;
+		--surface-low: #F3F3F4;
+		--surface-high: #E8E8E8;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	h1, h2, h3 {
+		font-family: 'Roboto Flex', sans-serif;
+		font-weight: 800;
+		letter-spacing: -0.02em;
+	}
+
+	
+
+	.glass {
+		background: rgba(255, 255, 255, 0.75);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+	}
+</style>

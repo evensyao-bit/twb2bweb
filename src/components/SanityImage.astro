@@ -1,0 +1,12 @@
+---
+import { client } from '../lib/sanity';
+import imageUrlBuilder from '@sanity/image-url';
+
+const { node } = Astro.props;
+const builder = imageUrlBuilder(client);
+const url = builder.image(node).url();
+---
+<figure class="my-10">
+  <img src={url} alt={node.alt || ''} class="w-full h-auto rounded-lg shadow-lg" />
+  {node.caption && <figcaption class="text-center text-sm text-black/40 mt-4 italic">{node.caption}</figcaption>}
+</figure>

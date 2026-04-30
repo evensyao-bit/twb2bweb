@@ -1,0 +1,118 @@
+---
+const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
+---
+<footer id="contact" class="bg-[#E9EDF2] py-24 px-6">
+	<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+		<!-- Left Side -->
+		<div class="space-y-12">
+			<div class="flex items-center gap-3">
+				<img src="/logo.gif" alt="拓必工作室 Logo" class="h-10 w-auto" />
+				<div class="text-2xl font-black tracking-tighter uppercase">拓必工作室</div>
+			</div>
+			<p class="text-black/60 max-w-sm leading-relaxed">
+				致力於透過設計與 AI 技術的結合，協助台灣優質硬體企業在數位世界中展現真正的全球競爭力。
+			</p>
+			<address class="not-italic flex items-center gap-2 text-black/40 text-sm font-bold">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+				Taipei, Taiwan
+			</address>
+			<div class="flex items-center gap-4">
+				<a href="https://www.youtube.com/@ai_studio_tw" target="sm"><img src="/youtube-icon.png" alt="YouTube" class="h-8 w-auto hover:scale-110 transition-transform" /></a>
+				<a href="https://www.linkedin.com/company/116254088/admin/page-posts/published/" target="sm"><img src="/linkedin.png" alt="LinkedIn" class="h-8 w-auto hover:scale-110 transition-transform" /></a>
+				<a href="https://www.facebook.com/twb2baistudio" target="sm"><img src="/FB-icon.png" alt="Facebook" class="h-8 w-auto hover:scale-110 transition-transform" /></a>
+				<a href="https://lin.ee/TT1dwP9" target="sm"><img src="/line-icon.png" alt="Line" class="h-8 w-auto hover:scale-110 transition-transform" /></a>
+			</div >
+			<div class="flex items-center">
+			<img src="/line-QRcode.png"  class="h-24 w-auto">
+			</div>
+		</div>
+
+		<!-- Right Side (Form) -->
+		<div class="bg-white p-12 md:p-16 shadow-sm">
+			<h2 class="text-3xl font-bold mb-10 text-black">與我們聯繫</h2>
+			
+      <form action="https://api.web3forms.com/submit" method="POST" id="form" class="space-y-8">
+        <input type="hidden" name="access_key" value={ACCESS_KEY}>
+        <input type="hidden" name="subject" value="來自官網的詢問 - 拓必工作室">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+				<div class="space-y-2">
+					<label for="company" class="block text-[10px] font-bold uppercase tracking-widest text-black/30">Company Name</label>
+					<input type="text" name="company" id="company" placeholder="您的公司名稱" required class="w-full border border-black/10 p-4 text-sm focus:outline-none focus:border-black transition-colors" />
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div class="space-y-2">
+						<label for="name" class="block text-[10px] font-bold uppercase tracking-widest text-black/30">Name</label>
+						<input type="text" name="name" id="name" placeholder="聯絡人" required class="w-full border border-black/10 p-4 text-sm focus:outline-none focus:border-black transition-colors" />
+					</div>
+					<div class="space-y-2">
+						<label for="email" class="block text-[10px] font-bold uppercase tracking-widest text-black/30">Email</label>
+						<input type="email" name="email" id="email" placeholder="電子信箱" required class="w-full border border-black/10 p-4 text-sm focus:outline-none focus:border-black transition-colors" />
+					</div>
+				</div>
+				<div class="space-y-2">
+					<label for="message" class="block text-[10px] font-bold uppercase tracking-widest text-black/30">Message</label>
+					<textarea name="message" id="message" rows="4" placeholder="您的需求簡述" required class="w-full border border-black/10 p-4 text-sm focus:outline-none focus:border-black transition-colors resize-none"></textarea>
+				</div>
+				<button type="submit" class="w-full bg-black text-white py-6 text-sm font-bold tracking-widest hover:bg-[#262626] transition-all">
+					送出詢問
+				</button>
+        <div id="result" class="mt-4 text-center text-xs font-bold uppercase tracking-widest"></div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="max-w-7xl mx-auto mt-24 pt-8 text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">
+		© 拓必工作室. ALL RIGHTS RESERVED.
+	</div>
+</footer>
+
+<script is:inline>
+  const form = document.getElementById('form');
+  const result = document.getElementById('result');
+
+  form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      result.innerHTML = "正在傳送...";
+      result.classList.remove('text-red-500');
+      result.classList.add('text-black/40');
+
+      fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              },
+              body: json
+          })
+          .then(async (response) => {
+              let json = await response.json();
+              if (response.status == 200) {
+                  result.innerHTML = "感謝您的詢問，我們將儘快與您聯繫！";
+                  result.classList.remove('text-black/40');
+                  result.classList.add('text-green-600');
+                  form.reset();
+              } else {
+                  console.log(response);
+                  result.innerHTML = json.message;
+                  result.classList.remove('text-black/40');
+                  result.classList.add('text-red-500');
+              }
+          })
+          .catch(error => {
+              console.log(error);
+              result.innerHTML = "發生錯誤，請稍後再試。";
+              result.classList.remove('text-black/40');
+              result.classList.add('text-red-500');
+          })
+          .then(function() {
+              setTimeout(() => {
+                  result.style.display = "none";
+              }, 5000);
+          });
+  });
+</script>

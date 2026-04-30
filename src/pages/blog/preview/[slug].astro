@@ -1,0 +1,133 @@
+---
+export const prerender = false;
+
+import Layout from '../../../layouts/Layout.astro';
+import { previewClient } from '../../../lib/sanity';
+import { PortableText } from 'astro-portabletext';
+import SanityImage from '../../../components/SanityImage.astro';
+import YouTube from '../../../components/YouTube.astro';
+import HtmlBlock from '../../../components/HtmlBlock.astro';
+
+// Guard: only allow access with the preview cookie
+const previewCookie = Astro.cookies.get('sanity-preview')?.value;
+if (previewCookie !== 'true') {
+  return Astro.redirect('/blog', 307);
+}
+
+const { slug } = Astro.params;
+
+// Fetch draft post via preview client
+const post = await previewClient.fetch(
+  `*[_type == "post" && slug.current == $slug][0] {
+    "slug": slug.current,
+    "mainImage": mainImage.asset->url,
+    title,
+    "date": publishedAt,
+    categories,
+    tags,
+    author,
+    excerpt,
+    body
+  }`,
+  { slug }
+);
+
+if (!post) {
+  return Astro.redirect('/blog', 307);
+}
+
+const formatDate = (dateString: string) => {
+  if (!dateString) return 'Unpublished Draft';
+  return new Date(dateString).toLocaleDateString('zh-TW', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).replace(/\//g, '-');
+};
+
+const components = {
+  type: {
+    image: SanityImage,
+    youtube: YouTube,
+    htmlBlock: HtmlBlock,
+  },
+  mark: {
+    color: ({ children, node }: any) => {
+      return `<span style="color: ${node.hex}">${children}</span>`;
+    },
+  },
+};
+---
+
+<Layout title={`[PREVIEW] ${post.title} - 拓必工作室`}>
+  <!-- Preview Mode Banner -->
+  <div class="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-amber-500 to-orange-500 text-white flex items-center justify-between px-6 py-2.5 shadow-lg">
+    <div class="flex items-center gap-3">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+      </span>
+      <span class="text-xs font-bold uppercase tracking-widest">Preview Mode — This content has not been published yet</span>
+    </div>
+    <a
+      href="/api/exit-preview"
+      class="text-xs font-bold uppercase tracking-widest bg-white/20 hover:bg-white/30 px-4 py-1.5 rounded transition-colors"
+    >
+      Exit Preview ✕
+    </a>
+  </div>
+
+  <main class="pt-52 min-h-screen">
+    <article class="max-w-4xl mx-auto px-6 py-20">
+      <div class="mb-20">
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          {post.categories?.map((cat: string) => (
+            <span class="bg-black text-white text-[10px] font-bold uppercase px-3 py-1 tracking-widest inline-block">
+              {cat}
+            </span>
+          ))}
+          <span class="bg-amber-500 text-white text-[10px] font-bold uppercase px-3 py-1 tracking-widest inline-block">
+            Draft Preview
+          </span>
+        </div>
+        <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tighter text-black mb-8">
+          {post.title}
+        </h1>
+        <div class="flex items-center gap-4 text-black/40 font-bold text-[10px] uppercase tracking-[0.2em]">
+          <span>{formatDate(post.date)}</span>
+          <span class="w-1 h-1 bg-black/20 rounded-full"></span>
+          <span>Author by {post.author}</span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-10">
+        {post.tags?.map((tag: string) => (
+          <span class="text-[10px] font-bold uppercase tracking-widest border border-black/10 px-3 py-2">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
+      {post.mainImage && (
+        <div class="overflow-hidden bg-[#E8E8E8] aspect-video mb-20">
+          <img
+            src={post.mainImage}
+            alt={post.title}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      <div class="prose prose-xl prose-black max-w-none">
+        {post.body ? <PortableText value={post.body} components={components} /> : <p>No content available yet.</p>}
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  /* Prevent page content from hiding under the fixed preview banner */
+  :global(body) {
+    padding-top: 2.5rem;
+  }
+</style>

@@ -1,0 +1,452 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import { client } from '../lib/sanity';
+import imageUrlBuilder from '@sanity/image-url';
+
+const builder = imageUrlBuilder(client);
+function urlFor(source) {
+  return builder.image(source);
+}
+
+const formatDate = (dateString: string) => {
+  if (!dateString) return '';
+  return new Date(dateString).toLocaleDateString('zh-TW', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).replace(/\//g, '-');
+};
+
+const posts = await client.fetch(`*[_type == "post"] | order(publishedAt desc) {
+  "slug": slug.current,
+  "mainImage": mainImage.asset->url,
+  title,
+  "date": publishedAt,
+  categories,
+  tags,
+  excerpt,
+  author
+}`);
+
+// Fallback to empty array if fetch fails or no posts
+const allPosts = posts || [];
+
+// Extract unique categories and tags for the filter UI
+const categories = [...new Set(allPosts.flatMap(post => post.categories || []).filter(Boolean))].sort();
+const tags = [...new Set(allPosts.flatMap(post => post.tags || []).filter(Boolean))].sort();
+---
+
+<Layout 
+  title="最新文章 Blog - 拓必工作室 To-Be Studio"
+  description="探索拓必工作室的最新觀點與實戰經驗，涵蓋 B2B 數位行銷、網站設計趨勢、AI 應用工具以及品牌重塑案例分享。"
+>
+	<main class="pt-40 min-h-screen">
+		<section class="max-w-7xl mx-auto px-6 py-20">
+			<div class="max-w-3xl mb-20">
+				<div class="bg-black text-white text-[10px] font-bold uppercase px-3 py-1 tracking-widest inline-block mb-4">
+					Our Blog
+				</div>
+				<h1 class="text-[clamp(3rem,8vw,5.5rem)] font-bold leading-[1.1] tracking-tighter text-black mb-8 mt-16">
+					最新文章
+				</h1>
+				<p class="text-xl text-black/50 leading-relaxed">
+					分享關於 AI 設計、數位行銷、以及 AI 在行銷應用的專業見解。
+				</p>
+			</div>
+
+			<!-- Filter Section -->
+			<div class="mb-20 space-y-8" id="filter-section">
+				<div class="flex flex-col gap-4">
+					<div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">類別</span>
+            <button id="all-btn" class="inline-flex items-center gap-2 text-base font-bold uppercase text-black hover:underline">
+              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M320 128C263.2 128 212.1 152.7 176.9 192L224 192C241.7 192 256 206.3 256 224C256 241.7 241.7 256 224 256L96 256C78.3 256 64 241.7 64 224L64 96C64 78.3 78.3 64 96 64C113.7 64 128 78.3 128 96L128 150.7C174.9 97.6 243.5 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C233 576 156.1 532.6 109.9 466.3C99.8 451.8 103.3 431.9 117.8 421.7C132.3 411.5 152.2 415.1 162.4 429.6C197.2 479.4 254.8 511.9 320 511.9C426 511.9 512 425.9 512 319.9C512 213.9 426 128 320 128z"/></svg>
+              Reset All
+            </button>
+          </div>
+					<div class="flex flex-wrap gap-3">
+						{categories.map(cat => (
+							<button 
+								data-filter-type="category"
+								data-filter-value={cat}
+								class="filter-btn px-6 py-3 text-xs font-bold tracking-widest uppercase transition-all duration-300 border border-black/10 hover:border-black"
+							>
+								{cat}
+							</button>
+						))}
+					</div>
+				</div>
+
+				<div class="flex flex-col gap-4">
+					<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">Tags</span>
+					<div class="flex flex-wrap gap-2">
+						{tags.map(tag => (
+							<button 
+								data-filter-type="tag"
+								data-filter-value={tag}
+								class="filter-btn px-4 py-2 text-[10px] font-bold tracking-widest uppercase transition-all duration-300 border border-black/10 rounded-full hover:border-black hover:bg-black/5"
+							>
+								#{tag}
+							</button>
+						))}
+					</div>
+				</div>
+
+				<div id="active-filter-indicator" class="hidden pt-4">
+					<p class="text-sm font-bold text-black/60 italic">
+						Active Filters: <span id="active-filter-list" class="text-black not-italic space-x-2"></span>
+						<button id="clear-all-filters" class="ml-4 text-xs underline uppercase hover:text-black">Clear All</button>
+					</p>
+				</div>
+			</div>
+
+			<div id="posts-grid" class="grid md:grid-cols-2 gap-16">
+				{allPosts.map((post) => (
+					<article 
+            class="group post-card" 
+            data-categories={post.categories?.join(',')} 
+            data-tags={post.tags?.join(',')}
+            data-date={post.date}
+          >
+						<a href={`/blog/${post.slug}`} class="block overflow-hidden bg-[#E8E8E8] aspect-[16/10] mb-8">
+							<img 
+								src={post.mainImage} 
+								alt={post.title}
+								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+							/>
+						</a>
+						
+						<div class="flex flex-col gap-6">
+							<div class="flex flex-wrap items-center gap-4">
+								{post.categories?.map(cat => (
+                  <button 
+                    data-filter-type="category"
+                    data-filter-value={cat}
+                    class="inline-category-btn text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-2 bg-black/5 hover:bg-black hover:text-white transition-colors"
+                  >
+                    {cat}
+                  </button>
+                ))}
+								<span class="text-[10px] font-bold text-black/30 uppercase tracking-[0.2em]">
+									{formatDate(post.date)}
+								</span>
+							</div>
+
+							<h2 class="text-3xl font-bold leading-tight group-hover:text-black/60 transition-colors">
+								<a href={`/blog/${post.slug}`}>{post.title}</a>
+							</h2>
+
+							<div class="flex flex-wrap gap-2">
+								{post.tags.map(tag => (
+									<button 
+                    data-filter-type="tag"
+                    data-filter-value={tag}
+										class="inline-tag-btn text-[10px] font-bold uppercase tracking-widest border border-black/10 px-2 py-1 transition-all hover:border-black hover:bg-black/5 text-black/40"
+									>
+										#{tag}
+									</button>
+								))}
+							</div>
+
+							<p class="text-black/50 leading-relaxed text-lg">
+								{post.excerpt.slice(0, 100)}...
+							</p>
+
+							<div class="flex items-center justify-between pt-6 border-t border-black/5">
+								<span class="text-xs font-bold text-black/60">
+									Author by <span class="text-black">{post.author}</span>
+								</span>
+								<a 
+									href={`/blog/${post.slug}`} 
+									class="text-xs font-bold tracking-[0.2em] uppercase group-hover:translate-x-2 transition-transform inline-flex items-center gap-2"
+								>
+									Read More
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
+				))}
+			</div>
+
+      <div id="no-results" class="hidden py-20 text-center">
+        <p class="text-2xl font-bold text-black/20 italic">No articles found matching these filters.</p>
+        <button id="reset-filter-btn" class="mt-8 inline-block underline uppercase tracking-widest font-bold">Clear All Filters</button>
+      </div>
+
+      <!-- Pagination Section -->
+      <div id="pagination-controls" class="mt-32 flex flex-col items-center gap-8 border-t border-black/5 pt-20">
+        <div class="flex items-center gap-4" id="page-numbers">
+          <!-- Page numbers injected here -->
+        </div>
+        <div class="flex items-center gap-8">
+          <button id="prev-page" class="group flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] disabled:opacity-20 disabled:cursor-not-allowed">
+            <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Prev
+          </button>
+          <span class="text-[10px] font-bold text-black/20 uppercase tracking-widest" id="page-info">Page 1 of 1</span>
+          <button id="next-page" class="group flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] disabled:opacity-20 disabled:cursor-not-allowed">
+            Next
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+  function initBlog() {
+    const filterButtons = document.querySelectorAll('.filter-btn, .inline-category-btn, .inline-tag-btn');
+    const postCards = Array.from(document.querySelectorAll('.post-card')) as HTMLElement[];
+    const indicator = document.getElementById('active-filter-indicator');
+    const filterListDisplay = document.getElementById('active-filter-list');
+    const clearAllBtn = document.getElementById('clear-all-filters');
+    const allBtn = document.getElementById('all-btn');
+    const noResults = document.getElementById('no-results');
+    const resetBtn = document.getElementById('reset-filter-btn');
+
+    // Pagination elements
+    const paginationControls = document.getElementById('pagination-controls');
+    const prevBtn = document.getElementById('prev-page') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-page') as HTMLButtonElement;
+    const pageNumbers = document.getElementById('page-numbers');
+    const pageInfo = document.getElementById('page-info');
+
+    let activeFilters = {
+      categories: new Set(),
+      tags: new Set()
+    };
+
+    let currentPage = 1;
+    const pageSize = 10;
+    let filteredPosts = [...postCards];
+
+    function updateURL() {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('category');
+      url.searchParams.delete('tag');
+      url.searchParams.delete('page');
+      
+      activeFilters.categories.forEach(cat => url.searchParams.append('category', cat as string));
+      activeFilters.tags.forEach(tag => url.searchParams.append('tag', tag as string));
+      
+      if (currentPage > 1) {
+        url.searchParams.set('page', currentPage.toString());
+      }
+      
+      window.history.pushState({}, '', url);
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredPosts.length / pageSize);
+      
+      if (totalPages <= 1) {
+        paginationControls?.classList.add('hidden');
+        return;
+      }
+
+      paginationControls?.classList.remove('hidden');
+      
+      // Update Buttons
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+      
+      // Update Page Info
+      if (pageInfo) {
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      }
+
+      // Update Page Numbers
+      if (pageNumbers) {
+        pageNumbers.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i.toString().padStart(2, '0');
+          btn.className = `text-[10px] font-bold tracking-widest w-8 h-8 rounded-full transition-all ${
+            i === currentPage 
+              ? 'bg-black text-white' 
+              : 'text-black/40 hover:text-black'
+          }`;
+          btn.onclick = () => {
+            currentPage = i;
+            applyDisplay();
+            window.scrollTo({ top: document.getElementById('posts-grid')?.offsetTop! - 200, behavior: 'smooth' });
+          };
+          pageNumbers.appendChild(btn);
+        }
+      }
+    }
+
+    function applyDisplay() {
+      // Hide all first
+      postCards.forEach(card => card.classList.add('hidden'));
+
+      // Show only filtered and paginated
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+      const pageItems = filteredPosts.slice(start, end);
+
+      pageItems.forEach(card => {
+        card.classList.remove('hidden');
+      });
+
+      renderPagination();
+      updateURL();
+    }
+
+    function applyFilters() {
+      // Update UI active states for filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        const type = btn.getAttribute('data-filter-type');
+        const value = btn.getAttribute('data-filter-value');
+        
+        const isActive = (type === 'category' && activeFilters.categories.has(value)) || 
+                         (type === 'tag' && activeFilters.tags.has(value));
+
+        if (isActive) {
+          btn.classList.add('bg-black', 'text-white', 'border-black');
+          btn.classList.remove('border-black/10');
+        } else {
+          btn.classList.remove('bg-black', 'text-white', 'border-black');
+          btn.classList.add('border-black/10');
+        }
+      });
+
+      // Filter the post list
+      filteredPosts = postCards.filter(card => {
+        const cardCategories = card.getAttribute('data-categories')?.split(',') || [];
+        const cardTags = card.getAttribute('data-tags')?.split(',') || [];
+        
+        const categoryMatch = activeFilters.categories.size === 0 || cardCategories.some(c => activeFilters.categories.has(c));
+        const tagMatch = activeFilters.tags.size === 0 || cardTags.some(t => activeFilters.tags.has(t));
+
+        return categoryMatch && tagMatch;
+      });
+
+      // Update indicator display
+      if (activeFilters.categories.size === 0 && activeFilters.tags.size === 0) {
+        indicator?.classList.add('hidden');
+      } else {
+        indicator?.classList.remove('hidden');
+        if (filterListDisplay) {
+          filterListDisplay.innerHTML = '';
+          
+          activeFilters.categories.forEach(cat => {
+            const span = createFilterPill(cat as string, 'category');
+            filterListDisplay.appendChild(span);
+          });
+          
+          activeFilters.tags.forEach(tag => {
+            const span = createFilterPill(`#${tag}`, 'tag', tag as string);
+            filterListDisplay.appendChild(span);
+          });
+        }
+      }
+
+      // Handle no results
+      noResults?.classList.toggle('hidden', filteredPosts.length > 0);
+      
+      // Reset to page 1 on filter change
+      currentPage = 1;
+      applyDisplay();
+    }
+
+    function createFilterPill(label: string, type: string, rawValue = label) {
+      const span = document.createElement('span');
+      span.className = 'inline-flex items-center gap-1 bg-black/5 px-2 py-1 rounded-sm text-[10px] font-bold';
+      span.innerHTML = `${label} <button class="hover:text-red-500">×</button>`;
+      span.querySelector('button')!.onclick = () => {
+        const val = type === 'tag' ? rawValue : label;
+        if (type === 'category') activeFilters.categories.delete(val);
+        else activeFilters.tags.delete(val);
+        applyFilters();
+      };
+      return span;
+    }
+
+    function toggleFilter(type: string, value: string) {
+      if (type === 'category') {
+        if (activeFilters.categories.has(value)) activeFilters.categories.delete(value);
+        else {
+          // Optional: clear other categories if you want single-category selection
+          // activeFilters.categories.clear();
+          activeFilters.categories.add(value);
+        }
+      } else if (type === 'tag') {
+        if (activeFilters.tags.has(value)) activeFilters.tags.delete(value);
+        else activeFilters.tags.add(value);
+      }
+      applyFilters();
+    }
+
+    function resetAll() {
+      activeFilters.categories.clear();
+      activeFilters.tags.clear();
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // Event Listeners
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const type = btn.getAttribute('data-filter-type');
+        const value = btn.getAttribute('data-filter-value');
+        if (type && value) toggleFilter(type, value);
+      });
+    });
+
+    [clearAllBtn, allBtn, resetBtn].forEach(btn => {
+      btn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetAll();
+      });
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        applyDisplay();
+        window.scrollTo({ top: document.getElementById('posts-grid')?.offsetTop! - 200, behavior: 'smooth' });
+      }
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredPosts.length / pageSize);
+      if (currentPage < totalPages) {
+        currentPage++;
+        applyDisplay();
+        window.scrollTo({ top: document.getElementById('posts-grid')?.offsetTop! - 200, behavior: 'smooth' });
+      }
+    });
+
+    // Initial state from URL
+    const params = new URLSearchParams(window.location.search);
+    params.getAll('category').forEach(cat => activeFilters.categories.add(cat));
+    params.getAll('tag').forEach(tag => activeFilters.tags.add(tag));
+    
+    const urlPage = parseInt(params.get('page') || '1');
+    currentPage = isNaN(urlPage) ? 1 : urlPage;
+
+    applyFilters();
+  }
+
+  // Initialize
+  initBlog();
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', () => {
+    // For simple implementation, just reload or re-init
+    initBlog();
+  });
+</script>
+
+<style>
+  .filter-btn.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+  }
+</style>
