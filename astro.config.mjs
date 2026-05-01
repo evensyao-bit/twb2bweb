@@ -5,12 +5,26 @@ import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import auth from 'auth-astro';
 import partytown from '@astrojs/partytown';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   output: 'server',
   adapter: cloudflare({
-    mode: 'directory'
+    mode: 'advanced'
   }),
+  vite: {
+    resolve: {
+      alias: {
+        'auth:config': path.resolve(__dirname, './auth.config.ts'),
+      },
+    },
+    optimizeDeps: {
+      include: ['auth-astro'],
+    },
+  },
   integrations: [
     tailwind(),
     react(),
