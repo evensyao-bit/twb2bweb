@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   output: 'server',
   adapter: cloudflare({
-    mode: 'advanced'
+    prerenderEnvironment: 'node',
   }),
   vite: {
     resolve: {
