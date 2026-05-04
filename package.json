@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && node fix-wrangler.mjs",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.2.2",
+    "@astrojs/cloudflare": "^12.6.13",
     "@astrojs/node": "^10.0.6",
     "@astrojs/partytown": "^2.1.7",
     "@astrojs/react": "^5.0.4",
@@ -22,7 +22,7 @@
     "@sanity/image-url": "^2.1.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/bcryptjs": "^2.4.6",
-    "astro": "^6.1.9",
+    "astro": "^5.18.1",
     "astro-portabletext": "^0.13.0",
     "auth-astro": "^4.2.0",
     "bcryptjs": "^3.0.3",
