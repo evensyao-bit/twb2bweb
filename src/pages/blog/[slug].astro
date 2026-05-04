@@ -1,28 +1,24 @@
 ---
-export const prerender = true;
 import Layout from '../../layouts/Layout.astro';
 import { client } from '../../lib/sanity';
 import { PortableText } from 'astro-portabletext';
 
-export async function getStaticPaths() {
-  const posts = await client.fetch(`*[_type == "post"] {
-    "slug": slug.current,
-    "mainImage": mainImage.asset->url,
-    title,
-    "date": publishedAt,
-    categories,
-    tags,
-    author,
-    body
-  }`);
+const { slug } = Astro.params;
 
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+const post = await client.fetch(`*[_type == "post" && slug.current == $slug][0] {
+  "slug": slug.current,
+  "mainImage": mainImage.asset->url,
+  title,
+  "date": publishedAt,
+  categories,
+  tags,
+  author,
+  body
+}`, { slug });
+
+if (!post) {
+  return Astro.redirect('/404');
 }
-
-const { post } = Astro.props;
 
 const formatDate = (dateString: string) => {
   if (!dateString) return '';
