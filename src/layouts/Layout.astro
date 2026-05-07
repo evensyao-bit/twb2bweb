@@ -7,9 +7,20 @@ import BackToTop from '../components/BackToTop.astro';
 interface Props {
 	title: string;
 	description?: string;
+	ogImage?: string;
+	ogType?: 'website' | 'article';
+	articleSchema?: any;
 }
 
-const { title, description = "拓必工作室 - 驅動 B2B 數位業務成長。20 年科技產業實戰經驗，提供網站策略、數位行銷、內容規劃與 SEO/GEO 優化服務。" } = Astro.props;
+const { 
+	title, 
+	description = "拓必工作室 - 驅動 B2B 數位業務成長。20 年科技產業實戰經驗，提供網站策略、數位行銷、內容規劃與 SEO/GEO 優化服務。",
+	ogImage = "/hero-KV.png",
+	ogType = "website",
+	articleSchema
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -27,6 +38,8 @@ const { title, description = "拓必工作室 - 驅動 B2B 數位業務成長。
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		
+		<link rel="canonical" href={canonicalURL} />
+
 		<!-- Primary Meta Tags -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
@@ -35,18 +48,19 @@ const { title, description = "拓必工作室 - 驅動 B2B 數位業務成長。
 		<meta name="author" content="拓必工作室" />
 
 		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://to-be-studio.com/" />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/hero-KV.png" />
+		<meta property="og:image" content={new URL(ogImage, Astro.url)} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://to-be-studio.com/" />
+		<meta property="twitter:url" content={Astro.url} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="/hero-KV.png" />
+		<meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+
 
 		<!-- Favicons -->
 		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
@@ -97,6 +111,11 @@ const { title, description = "拓必工作室 - 驅動 B2B 數位業務成長。
 				]
 			}
 		</script>
+
+		{articleSchema && (
+			<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+		)}
+
 		
 		<script is:inline>
 			// Force scroll to top and disable restoration to prevent jumping on refresh

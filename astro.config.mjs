@@ -5,13 +5,17 @@ import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import auth from 'auth-astro';
 import partytown from '@astrojs/partytown';
+import sitemap from '@astrojs/sitemap';
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  site: 'https://to-be-studio.com',
   output: 'server',
+
   adapter: cloudflare({
     prerenderEnvironment: 'node',
   }),
@@ -39,6 +43,8 @@ export default defineConfig({
         forward: ['dataLayer.push'],
       },
     }),
+    sitemap(),
+
   ],
 });
 

@@ -9,6 +9,7 @@ const post = await client.fetch(`*[_type == "post" && slug.current == $slug][0] 
   "slug": slug.current,
   "mainImage": mainImage.asset->url,
   title,
+  excerpt,
   "date": publishedAt,
   categories,
   tags,
@@ -19,6 +20,18 @@ const post = await client.fetch(`*[_type == "post" && slug.current == $slug][0] 
 if (!post) {
   return Astro.redirect('/404');
 }
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.title,
+  "image": [post.mainImage],
+  "datePublished": post.date,
+  "author": [{
+    "@type": "Person",
+    "name": post.author || "拓必工作室"
+  }]
+};
 
 const formatDate = (dateString: string) => {
   if (!dateString) return '';
@@ -39,14 +52,21 @@ const components = {
     htmlBlock: HtmlBlock,
   },
   mark: {
-    color: ({ children, node }) => {
+    color: ({ children, node }: any) => {
       return `<span style="color: ${node.hex}">${children}</span>`;
     },
   },
 };
 ---
 
-<Layout title={`${post.title} - 最新文章 - 拓必工作室`}>
+<Layout 
+  title={`${post.title} - 最新文章 - 拓必工作室`}
+  description={post.excerpt}
+  ogImage={post.mainImage}
+  ogType="article"
+  articleSchema={articleSchema}
+>
+
 	<main class="pt-40 min-h-screen">
 		<article class="max-w-4xl mx-auto px-6 py-20">
 			<div class="mb-20">
