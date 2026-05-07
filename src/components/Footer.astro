@@ -87,7 +87,17 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
       e.preventDefault();
       const formData = new FormData(form);
       const object = Object.fromEntries(formData);
+      
+      // Check for Turnstile Token
+      if (!object['cf-turnstile-response']) {
+        result.innerHTML = "請先完成安全驗證。";
+        result.classList.remove('text-black/40');
+        result.classList.add('text-red-500');
+        return;
+      }
+
       const json = JSON.stringify(object);
+
 
       result.innerHTML = "正在傳送...";
       result.classList.remove('text-red-500');
@@ -109,12 +119,15 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
                   result.classList.remove('text-black/40');
                   result.classList.add('text-green-600');
                   form.reset();
+                  // Reset Turnstile widget if it exists
+                  if (window.turnstile) window.turnstile.reset();
               } else {
                   console.log(response);
-                  result.innerHTML = json.message;
+                  result.innerHTML = json.debug ? `${json.message} (${json.debug})` : json.message;
                   result.classList.remove('text-black/40');
                   result.classList.add('text-red-500');
               }
+
           })
           .catch(error => {
               console.log(error);

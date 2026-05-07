@@ -40,11 +40,15 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify(result), {
       status: response.status,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Contact form proxy error:', error);
     return new Response(
-      JSON.stringify({ message: 'An internal error occurred. Please try again later.' }),
+      JSON.stringify({ 
+        message: 'An internal error occurred.', 
+        debug: error.message 
+      }),
       { status: 500 }
     );
   }
+
 };
