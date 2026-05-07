@@ -99,46 +99,61 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
       const json = JSON.stringify(object);
 
 
-      result.innerHTML = "正在傳送...";
+      result.innerHTML = "正在驗證安全挑戰...";
       result.classList.remove('text-red-500');
       result.classList.add('text-black/40');
 
+      // Step 1: Verify Turnstile Token via our server
       fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: json
+      })
+      .then(async (verifyResponse) => {
+          const verifyData = await verifyResponse.json();
+          
+          if (verifyResponse.status !== 200 || !verifyData.success) {
+              throw new Error(verifyData.message || '安全驗證失敗');
+          }
 
+          // Step 2: Submit directly to Web3Forms
+          result.innerHTML = "正在傳送詢問...";
+          return fetch('https://api.web3forms.com/submit', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
               },
               body: json
-          })
-          .then(async (response) => {
-              let json = await response.json();
-              if (response.status == 200) {
-                  result.innerHTML = "感謝您的詢問，我們將儘快與您聯繫！";
-                  result.classList.remove('text-black/40');
-                  result.classList.add('text-green-600');
-                  form.reset();
-                  // Reset Turnstile widget if it exists
-                  if (window.turnstile) window.turnstile.reset();
-              } else {
-                  console.log(response);
-                  result.innerHTML = json.debug ? `${json.message} (${json.debug})` : json.message;
-                  result.classList.remove('text-black/40');
-                  result.classList.add('text-red-500');
-              }
-
-          })
-          .catch(error => {
-              console.log(error);
-              result.innerHTML = "發生錯誤，請稍後再試。";
+          });
+      })
+      .then(async (response) => {
+          let json = await response.json();
+          if (response.status == 200) {
+              result.innerHTML = "感謝您的詢問，我們將儘快與您聯繫！";
+              result.classList.remove('text-black/40');
+              result.classList.add('text-green-600');
+              form.reset();
+              if (window.turnstile) window.turnstile.reset();
+          } else {
+              result.innerHTML = json.message || "傳送失敗，請稍後再試。";
               result.classList.remove('text-black/40');
               result.classList.add('text-red-500');
-          })
-          .then(function() {
-              setTimeout(() => {
-                  result.style.display = "none";
-              }, 5000);
-          });
+          }
+      })
+      .catch(error => {
+          console.error(error);
+          result.innerHTML = error.message || "發生錯誤，請稍後再試。";
+          result.classList.remove('text-black/40');
+          result.classList.add('text-red-500');
+      })
+      .then(function() {
+          setTimeout(() => {
+              result.style.display = "none";
+          }, 5000);
+      });
+
   });
 </script>
