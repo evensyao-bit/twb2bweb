@@ -31,15 +31,24 @@ export const POST: APIRoute = async ({ request }) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'User-Agent': 'TobeStudio-ContactProxy/1.0',
       },
       body: JSON.stringify(web3FormData),
     });
 
-    const result = await response.json();
+    const contentType = response.headers.get('content-type');
+    let result;
+    if (contentType && contentType.includes('application/json')) {
+      result = await response.json();
+    } else {
+      const text = await response.text();
+      result = { message: 'External Service Error', debug: text.slice(0, 100) };
+    }
 
     return new Response(JSON.stringify(result), {
       status: response.status,
     });
+
   } catch (error: any) {
     console.error('Contact form proxy error:', error);
     return new Response(
