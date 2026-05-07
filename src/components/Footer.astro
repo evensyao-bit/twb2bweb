@@ -29,7 +29,9 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
 
 		<!-- Right Side (Form) -->
 		<div class="bg-white p-12 md:p-16 shadow-sm">
+			<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 			<h2 class="text-3xl font-bold mb-10 text-black">與我們聯繫</h2>
+
 			
       <form action="https://api.web3forms.com/submit" method="POST" id="form" class="space-y-8">
         <input type="hidden" name="access_key" value={ACCESS_KEY}>
@@ -57,6 +59,16 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
 				<button type="submit" class="w-full bg-black text-white py-6 text-sm font-bold tracking-widest hover:bg-[#262626] transition-all">
 					送出詢問
 				</button>
+
+				<!-- Cloudflare Turnstile -->
+				<div class="flex justify-center mt-6">
+					<div 
+						class="cf-turnstile" 
+						data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+						data-theme="light"
+					></div>
+				</div>
+
         <div id="result" class="mt-4 text-center text-xs font-bold uppercase tracking-widest"></div>
 			</form>
 		</div>
@@ -81,7 +93,8 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
       result.classList.remove('text-red-500');
       result.classList.add('text-black/40');
 
-      fetch('https://api.web3forms.com/submit', {
+      fetch('/api/contact', {
+
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

@@ -1,6 +1,8 @@
 import Credentials from '@auth/core/providers/credentials';
 import { defineConfig } from 'auth-astro';
 import { verifyUser } from './src/lib/auth-utils';
+import { validateTurnstileToken } from './src/lib/turnstile';
+
 
 export default defineConfig({
   providers: [
@@ -13,7 +15,19 @@ export default defineConfig({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
         
+        // Verify Turnstile Token
+        const turnstileToken = credentials.turnstileToken as string;
+        if (!turnstileToken) {
+          throw new Error('Security challenge required');
+        }
+
+        const isTurnstileValid = await validateTurnstileToken(turnstileToken);
+        if (!isTurnstileValid) {
+          throw new Error('Invalid security challenge. Please try again.');
+        }
+
         try {
+
           const user = await verifyUser(
             credentials.email as string, 
             credentials.password as string

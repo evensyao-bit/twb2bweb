@@ -8,7 +8,9 @@ const error = searchParams.get('error');
 ---
 
 <Layout title="Login | 拓必工作室 CMS">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <main class="min-h-screen flex items-center justify-center bg-[#0a0a0a] relative overflow-hidden">
+
     <!-- Animated Background Elements -->
     <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px] animate-pulse"></div>
     <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s;"></div>
@@ -95,7 +97,17 @@ const error = searchParams.get('error');
             Sign In
             <ChevronRight class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
           </button>
+
+          <!-- Cloudflare Turnstile -->
+          <div class="flex justify-center mt-4">
+            <div 
+              class="cf-turnstile" 
+              data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+              data-theme="dark"
+            ></div>
+          </div>
         </form>
+
       </div>
 
       <p class="text-center mt-8 text-sm text-gray-500">
@@ -125,14 +137,24 @@ const error = searchParams.get('error');
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     const callbackUrl = formData.get('callbackUrl') as string;
+    const turnstileToken = formData.get('cf-turnstile-response') as string;
+
+    if (!turnstileToken) {
+      alert('Please complete the security challenge.');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Sign In';
+      return;
+    }
 
     try {
       await signIn('credentials', {
         email,
         password,
         callbackUrl,
+        turnstileToken,
         redirect: true,
       });
+
     } catch (err) {
       console.error('Login error:', err);
       window.location.href = `/login?error=CredentialsSignin&callbackUrl=${encodeURIComponent(callbackUrl)}`;

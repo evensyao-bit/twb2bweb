@@ -149,8 +149,9 @@ const tags = [...new Set(allPosts.flatMap(post => post.tags || []).filter(Boolea
 							</div>
 
 							<p class="text-black/50 leading-relaxed text-lg">
-								{post.excerpt.slice(0, 100)}...
+								{post.excerpt}
 							</p>
+
 
 							<div class="flex items-center justify-between pt-6 border-t border-black/5">
 								<span class="text-xs font-bold text-black/60">
