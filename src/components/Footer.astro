@@ -120,14 +120,20 @@ const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
 
           // Step 2: Submit directly to Web3Forms
           result.innerHTML = "正在傳送詢問...";
+          
+          // Remove the Turnstile token so Web3Forms doesn't trigger the "Pro Feature" error
+          const web3FormData = { ...object };
+          delete web3FormData['cf-turnstile-response'];
+
           return fetch('https://api.web3forms.com/submit', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
               },
-              body: json
+              body: JSON.stringify(web3FormData)
           });
+
       })
       .then(async (response) => {
           let json = await response.json();
