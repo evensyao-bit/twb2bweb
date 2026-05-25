@@ -13,7 +13,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  site: 'https://to-be-studio.com',
+  site: 'https://twb2bweb.com/',
   output: 'server',
 
   adapter: cloudflare({
