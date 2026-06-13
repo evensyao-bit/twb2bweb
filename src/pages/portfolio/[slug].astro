@@ -129,12 +129,14 @@ export function getStaticPaths() {
         '行銷素材設計'
       ],
       gallery: [
+        { url: '/portfolio/HS-product-datasheet.jpg', label: '產品 Data Sheet' },
         { url: '/portfolio/Graphic-Brochure.jpg', label: '產品型錄（三折）' },
         { url: '/portfolio/Graphic-Backdrop.jpg', label: '展場掛布' },
         { url: '/portfolio/Graphic-banner.jpg', label: 'Banner' },
         { url: '/portfolio/Graphic-Logo.gif', label: '公司 Logo 設計' },
         { url: '/portfolio/Graphic-namecard.png', label: '名片設計' },
         { url: '/portfolio/Graphic-signage.gif', label: '展覽立牌' }
+        
       ]
     },
     {
@@ -160,6 +162,35 @@ export function getStaticPaths() {
         { url: '/portfolio/deksollc-other.jpg', label: '內容頁' },
         { url: '/portfolio/deksollc-about.jpg', label: '關於我們頁' },
         { url: '/portfolio/deksollc-contact.jpg', label: '聯絡我們頁' }
+      ]
+    },
+    {
+      slug: 'homescenario-website',
+      title: 'HomeScenario AIOT 官網全面改版專案',
+      category: '網站 / 網頁',
+      projectNames: ['HomeScenario AIOT 官網全面改版專案（homescenario.com）'],
+      description: '本專案針對運行多年的 AIoT 智慧建築品牌 HomeScenario 官方網站進行全面改版。原網站架設於 Wix 平台，內容架構老舊、缺乏 CMS 管理機制，產品圖片品質參差不齊，且從未進行系統性 SEO 設定，無法有效反映品牌在全球智慧建築市場的實力與深度。本次改版在沿用 Wix 平台的前提下，全面導入 CMS 架構、AI 輔助內容優化、生成式 AI 圖像處理與完整 SEO／GEO 設定，將一個難以維護的靜態展示網站，升級為具備搜尋競爭力、易於擴充的現代化品牌官網。',
+      highlights: [
+        '沿用既有 Wix 平台進行全面改版，保留原有搜尋引擎索引資產並排除平台遷移風險',
+        '導入 Wix CMS 建立結構化內容資料集合，統一管理解決方案、產品頁面、案例與成功專案',
+        '運用 AI 工具全面重寫網站文案，兼顧 SEO（搜尋引擎優化）與 GEO（生成式引擎優化）雙軌可見度策略',
+        '以生成式 AI 技術統一處理全站產品圖片，在無需實體拍攝的前提下大幅提升視覺一致性與品牌質感',
+        '完成全站 SEO 完整設定，涵蓋 Meta 標題與描述、標題層級架構、圖片 Alt 文字及站點地圖提交',
+        '新增成功案例專區，系統化呈現巴林別墅、新光醫院、國立臺灣大學等國內外標竿部署實績'
+      ],
+      gallery: [
+        { url: '/portfolio/HS-homepage.jpg', label: '首頁' },
+        { url: '/portfolio/HS-company.jpg', label: 'About Us 頁' },
+        { url: '/portfolio/HS-solution-landingpage.jpg', label: 'Solutions 介紹頁' },
+        { url: '/portfolio/HS-solutionpage.jpg', label: 'Solution 內容頁' },
+        { url: '/portfolio/HS-project-landingpage.jpg', label: 'Projects 介紹頁' },
+        { url: '/portfolio/HS-projectpage.jpg', label: 'Project 內容頁' },
+        { url: '/portfolio/HS-product-landingpage.jpg', label: '產品介紹頁' },
+        { url: '/portfolio/HS-productpage.jpg', label: '產品內容頁' },
+        { url: '/portfolio/HS-iCitySmart.jpg', label: 'iCitySmart 內容頁' },        
+        { url: '/portfolio/HS-caselanding.jpg', label: '成功案例介紹頁' },
+        { url: '/portfolio/HS-casepage.jpg', label: '成功案例內容頁' },
+        { url: '/portfolio/HS-contact.jpg', label: '聯絡我們頁' }
       ]
     }
   ];
